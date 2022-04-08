@@ -1,0 +1,26 @@
+spring:  
+  kafka:
+    listener:
+       #ack-mode: manual_immediate
+       concurrency: 10
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: test-group-1
+      auto-offset-reset: earliest
+      #enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      topic: topic1
+    recovery:  
+      dlt-topic: topic1.DLT
+    retry:
+      backoff-interval: 2000
+      backoff-maxAttempts:  4
+      errorhandler:
+        resetStateOnRecoveryFailure: false
+        skipexceptions:
+          - IllegalAccessException.class
+          - MethodArgumentNotValidException.class
+
+    
+    
